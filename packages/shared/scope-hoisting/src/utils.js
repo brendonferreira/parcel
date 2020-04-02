@@ -61,7 +61,8 @@ export function isEntry(bundle: Bundle, bundleGraph: BundleGraph) {
 export function isReferenced(bundle: Bundle, bundleGraph: BundleGraph) {
   let isReferenced = false;
   bundle.traverseAssets((asset, _, actions) => {
-    // A bundle is potentially referenced if any of its assets is referenced by another js bundle
+    // A bundle is potentially referenced if any of its assets is referenced
+    // by any of its siblings, descendants, or their siblings.
     if (bundleGraph.isAssetReferencedByDependant(bundle, asset)) {
       isReferenced = true;
       actions.stop();
